@@ -1,2 +1,3 @@
-# Taiwan-Train-Simulator
-An open-source Taiwan railway simulation game.
+# Railway Timetable Validator
+
+An open-source tool for validating railway timetables, platform conflicts, and train scheduling issues.
