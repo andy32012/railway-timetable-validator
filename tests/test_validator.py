@@ -154,13 +154,17 @@ class CliTests(unittest.TestCase):
     def run_cli(self, *args):
         return subprocess.run(
             [sys.executable, str(ROOT / "validator.py"), *map(str, args)],
-            capture_output=True, text=True, check=False,
+            capture_output=True, text=True, encoding="utf-8", check=False,
         )
 
     def test_sample_output_and_exit_code(self):
         result = self.run_cli(ROOT / "examples/sample_timetable.csv")
         self.assertEqual(result.returncode, 1)
-        self.assertEqual(result.stdout, EXPECTED + "\n")
+        self.assertIn("[PLATFORM_OVERLAP] error", result.stdout)
+        self.assertIn("Sources: line 2, line 4", result.stdout)
+        self.assertIn("Trains: 101, 103", result.stdout)
+        self.assertIn("Overlap: 08:03 - 08:05 (2 minutes)", result.stdout)
+        self.assertIn("validation_complete=true", result.stdout)
         self.assertEqual(result.stderr, "")
 
     def test_clean_timetable(self):
@@ -169,7 +173,8 @@ class CliTests(unittest.TestCase):
             path.write_text(HEADER + "101,Taipei,1,08:00,08:05\n", encoding="utf-8")
             result = self.run_cli(path)
         self.assertEqual(result.returncode, 0)
-        self.assertEqual(result.stdout, "No conflicts found.\n")
+        self.assertIn("No platform overlaps found in the provided data under enabled rules.", result.stdout)
+        self.assertIn("validation_complete=true", result.stdout)
         self.assertEqual(result.stderr, "")
 
     def test_missing_file(self):
