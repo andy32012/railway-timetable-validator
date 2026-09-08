@@ -1,0 +1,6 @@
+Train,Station,Platform,Arrival,Departure
+101,Taipei,1,08:00,08:05
+102,Taipei,2,08:01,08:06
+103,Taipei,1,08:03,08:08
+104,Taipei,1,08:08,08:12
+105,Banqiao,1,08:03,08:07
