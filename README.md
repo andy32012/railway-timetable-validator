@@ -13,7 +13,7 @@
 下載本輪分支並進入專案：
 
 ```sh
-git clone --branch feat/traceable-csv-validation https://github.com/andy32012/railway-timetable-validator.git
+git clone https://github.com/andy32012/railway-timetable-validator.git
 cd railway-timetable-validator
 python validator.py examples/sample_timetable.csv
 ```
